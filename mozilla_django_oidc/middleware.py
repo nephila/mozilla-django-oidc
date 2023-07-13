@@ -214,8 +214,8 @@ class RefreshOIDCAccessToken(SessionRefresh):
     A middleware that will refresh the access token following proper OIDC protocol:
     https://auth0.com/docs/tokens/refresh-token/current
     """
-    def process_request(self, request):
-        if not self.is_expired(request):
+    def process_request(self, request, force=False):
+        if not self.is_expired(request) and not force:
             return
 
         token_url = import_from_settings('OIDC_OP_TOKEN_ENDPOINT')
